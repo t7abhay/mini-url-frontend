@@ -1,56 +1,54 @@
-import { useState } from "react";
-import axios from "../config/axiosConfig";
+import React, { useState, useEffect } from "react";
+import URLInput from "../components/URLShortener/URLInput";
+import URLList from "../components/URLShortener/URLList";
+import { getUserUrls } from ".././API/api.js";
 
-const ShortUrlForm = ({ onShortened }) => {
-  const [originalUrl, setOriginalUrl] = useState("");
+const Dashboard = () => {
+  const [urls, setUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
-    setError("");
-    setLoading(true);
-
-    try {
-      if (!originalUrl.trim()) {
-        setError("Please enter a valid URL.");
+  useEffect(() => {
+    const fetchUrls = async () => {
+      try {
+        const data = await getUserUrls();
+        setUrls(data);
+      } catch (err) {
+        console.error("Error fetching URLs:", err);
+        setError("Failed to load your shortened URLs");
+      } finally {
         setLoading(false);
-        return;
       }
+    };
 
-      const res = await axios.post("/shorten-url", { url: originalUrl });
+    fetchUrls();
+  }, []);
 
-      if (res.data?.data?.shortenedUrl) {
-        console.log("Shortened URL:", res.data.data.shortenedUrl);
-        onShortened(res.data.data); // pass full object if needed
-        setOriginalUrl("");
-      } else {
-        setError("No shortened URL returned");
-      }
-    } catch (err) {
-      setError("Failed to shorten URL. Please try again.");
-      console.error("Axios error:", err);
-    }
-
-    setLoading(false);
+  const handleNewUrl = (newUrl) => {
+    setUrls([newUrl, ...urls]);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="url"
-        placeholder="Enter URL to shorten"
-        value={originalUrl}
-        onChange={(e) => setOriginalUrl(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={loading}>
-        {loading ? "Shortening..." : "Shorten"}
-      </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">
+        URL Shortener Dashboard
+      </h1>
+
+      <URLInput onUrlShortened={handleNewUrl} />
+
+      {loading ? (
+        <div className="flex justify-center py-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
+        </div>
+      ) : error ? (
+        <div className="bg-red-100 dark:bg-red-900 p-4 rounded-md text-red-800 dark:text-red-200 text-center">
+          {error}
+        </div>
+      ) : (
+        <URLList urls={urls} />
+      )}
+    </div>
   );
 };
 
-export default ShortUrlForm;
+export default Dashboard;

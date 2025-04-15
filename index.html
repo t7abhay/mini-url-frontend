@@ -1,15 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
+    <meta
+      name="description"
+      content="URL Shortener - Create short, memorable links instantly"
+    />
+    <meta name="theme-color" content="#1E40AF" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Base URL for client-side routing -->
     <base href="/" />
 
-    <div id="root"></div>
+    <!-- Primary Meta Tags -->
+    <title>URL Shortener</title>
+    <meta name="title" content="URL Shortener" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="URL Shortener" />
+    <meta
+      property="og:description"
+      content="Create short, memorable links instantly"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="URL Shortener" />
+    <meta
+      property="twitter:description"
+      content="Create short, memorable links instantly"
+    />
+
+    <!-- Preload fonts if using custom fonts -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin="anonymous"
+    />
+
+    <!-- Prevent flash of unstyled content -->
+    <script>
+      // Check for saved theme preference, otherwise use system preference
+      const theme =
+        localStorage.getItem("theme") ||
+        (window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light");
+
+      // Apply theme immediately to prevent flash
+      if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+  </head>
+  <body
+    class="h-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased"
+  >
+    <!-- No-JavaScript warning -->
+    <noscript>
+      <div class="flex items-center justify-center h-screen">
+        <div
+          class="text-center p-6 bg-red-50 dark:bg-red-900 rounded-lg shadow-md"
+        >
+          <h1 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-2">
+            JavaScript Required
+          </h1>
+          <p class="text-red-600 dark:text-red-300">
+            Please enable JavaScript to use this application.
+          </p>
+        </div>
+      </div>
+    </noscript>
+
+    <!-- Application root -->
+    <div id="root" class="h-full"></div>
+
+    <!-- Loading indicator (optional) -->
+    <div
+      id="loading"
+      class="hidden fixed inset-0 flex items-center justify-center bg-white dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75"
+    >
+      <div
+        class="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"
+      ></div>
+    </div>
+
+    <!-- Portal root for modals -->
+    <div id="portal-root"></div>
+
+    <!-- Vite entry point -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,0 +1,9 @@
+/* You can keep this file for app-specific styles */
+/* But make sure it doesn't override Tailwind classes */
+
+/* Example of extending Tailwind with custom classes */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+}
