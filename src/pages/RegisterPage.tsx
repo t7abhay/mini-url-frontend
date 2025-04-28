@@ -1,5 +1,4 @@
 import Form from "../components/Form";
-import { useAuth } from "../components/AuthContext";
 import { Link } from "react-router-dom";
 export default function RegisterPage({ mode }) {
   return (

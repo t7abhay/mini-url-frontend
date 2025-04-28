@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../components/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast, Zoom } from "react-toastify";
 import Navbar from "../components/Navbar.tsx";

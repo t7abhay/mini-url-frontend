@@ -1,5 +1,5 @@
 import Form from "../components/Form";
-import { useAuth } from "../components/AuthContext.tsx";
+import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast, Zoom } from "react-toastify";

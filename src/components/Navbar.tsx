@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../components/AuthContext.tsx";
+import { useAuth } from "../hooks/useAuth";
 import { errorToast, successToast } from "../utils/notifications/Toasts.ts";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./componentsstyles/form.style.css";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/axios/axiosInstance.ts";
-import { useAuth } from "../components/AuthContext";
+import { useAuth } from "../hooks/useAuth";
 import {
   successToast,
   errorToast,
