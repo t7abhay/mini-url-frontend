@@ -1,3 +1,11 @@
-#the-main-body {
-  background-color: rgba(96, 64, 178, 0.696);
+@import "tailwindcss" @tailwind utilities;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #1d3d48, #25647f);
+  background-size: 400% 400%;
+  animation: bgAnimation 20s ease infinite;
+  color: white;
 }

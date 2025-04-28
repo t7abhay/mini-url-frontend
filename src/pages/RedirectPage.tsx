@@ -10,7 +10,7 @@ export default function RedirectPage() {
   useEffect(() => {
     const fetchUrlAndRedirect = async () => {
       try {
-        const response = await axiosInstance.get(`/api/v1/${shortId}`);
+        const response = await axiosInstance.get(`/${shortId}`);
         const originalUrl = response.data.url;
         window.location.href = originalUrl;
       } catch (error) {

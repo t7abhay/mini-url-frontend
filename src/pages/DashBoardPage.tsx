@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { toast, Zoom } from "react-toastify";
-import Navbar from "../components/Navbar";
+import {
+  successToast,
+  errorToast,
+  warnToast,
+} from "../utils/notifications/Toasts";
+
 export default function DashBoard() {
   const [longUrl, setLongUrl] = useState<string>("");
   const { user, loading } = useAuth();
@@ -10,16 +14,7 @@ export default function DashBoard() {
 
   const handleSubmit = () => {
     console.log("Submitted:", longUrl);
-    toast.success("🦄 Link submitted!", {
-      position: "top-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Zoom,
-    });
+    successToast("Link submitted!");
   };
 
   useEffect(() => {
@@ -35,11 +30,10 @@ export default function DashBoard() {
   if (user) {
     return (
       <>
-        <Navbar />
         <div id="home_text" className="justify-center">
           <h2>Mini Url</h2>
           <br />
-          <h4>Shorten your big urls with one click</h4>
+          <h4>Enter long Url</h4>
         </div>
 
         <div>

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./componentsstyles/form.style.css";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/axios/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
+
+import { isValidEmail } from "../utils/emailValidation";
+
 import {
   successToast,
   errorToast,
@@ -11,7 +14,7 @@ import {
 } from "../utils/notifications/Toasts";
 import { validateConfirmPassword } from "../utils/passwordConfirm";
 import "react-toastify/dist/ReactToastify.css";
-
+import { validateEmail } from "../utils/emailValidation.ts";
 type FormMode = "login" | "register" | "changePassword";
 
 interface FormProps {
@@ -41,7 +44,7 @@ export default function Form({ mode }: FormProps) {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({ ...formData, [event?.target?.name]: event?.target?.value });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -50,6 +53,10 @@ export default function Form({ mode }: FormProps) {
     setError(null);
 
     try {
+      if (!isValidEmail(formData.email)) {
+        errorToast(`👻 Provide a valid email`);
+      }
+
       if (mode === "login") {
         const payload = {
           email: formData.email,
@@ -62,6 +69,7 @@ export default function Form({ mode }: FormProps) {
           })
           .then((response) => {
             login(response.data.data.user);
+
             successToast("🙂 Login Successfull!");
             navigate("/dashboard");
           })
