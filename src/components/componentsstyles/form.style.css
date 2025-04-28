@@ -1,0 +1,35 @@
+.form_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#form_title {
+  display: inline-block;
+
+  background: linear-gradient(to right, #3f5efb, #fc466b, #3dcf23, #eedd44);
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#form_input_username,
+#form_input_password {
+  padding: 10px;
+  width: 200px;
+  margin: 5px 0;
+}
+#form_submit_button {
+  padding: 10px 20px;
+  background-color: #3f5efb;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#form_submit_button:hover {
+  background-color: #2c46c7;
+}
