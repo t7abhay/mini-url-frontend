@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./componentsstyles/form.style.css";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../config/axios/axiosInstance.ts";
+import { axiosInstance } from "../config/axios/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
 import {
   successToast,
   errorToast,
   infoToast,
   warnToast,
-} from "../utils/notifications/Toasts.ts";
-import { validateConfirmPassword } from "../utils/passwordConfirm.ts";
+} from "../utils/notifications/Toasts";
+import { validateConfirmPassword } from "../utils/passwordConfirm";
 import "react-toastify/dist/ReactToastify.css";
 
 type FormMode = "login" | "register" | "changePassword";

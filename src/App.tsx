@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import NotFoundPage from "./pages/NotFoundPage.tsx";
-import ProfilePage from "./pages/ProfilePage.tsx";
-import HomePage from "./pages/HomePage.tsx";
-import DashBoard from "./pages/DashBoardPage.tsx";
-import LoginPage from "./pages/LoginPage.tsx";
-import RegisterPage from "./pages/RegisterPage.tsx";
-import RedirectPage from "./pages/RedirectPage.tsx";
-import ChangePasswordPage from "./pages/ChangePasswordPage.tsx";
-import UrlNotFoundPage from "./pages/UrlNotFoundPage.tsx";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import NotFoundPage from "./pages/NotFoundPage";
+import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
+import DashBoard from "./pages/DashBoardPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import RedirectPage from "./pages/RedirectPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import UrlNotFoundPage from "./pages/UrlNotFoundPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter(
   [

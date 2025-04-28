@@ -1,4 +1,4 @@
-import { axiosInstance } from "../config/axios/axiosInstance.ts";
+import { axiosInstance } from "../config/axios/axiosInstance";
 
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast, Zoom } from "react-toastify";
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../components/Navbar";
 export default function DashBoard() {
   const [longUrl, setLongUrl] = useState<string>("");
   const { user, loading } = useAuth();

@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../../config/axios/axiosInstance.ts";
+import { axiosInstance } from "../../../config/axios/axiosInstance";
 
 interface LoginRequest {
   email: string;

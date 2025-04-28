@@ -1,4 +1,4 @@
-import Form from "../components/Form.tsx";
+import Form from "../components/Form";
 
 export default function ChangePasswordPage({ mode }) {
   return (
@@ -10,5 +10,4 @@ export default function ChangePasswordPage({ mode }) {
       <h3></h3>
     </>
   );
-
 }

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { errorToast, successToast } from "../utils/notifications/Toasts.ts";
+import { errorToast, successToast } from "../utils/notifications/Toasts";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProfilePage from "../pages/ProfilePage";
-import { axiosInstance } from "../config/axios/axiosInstance.ts";
+import { axiosInstance } from "../config/axios/axiosInstance";
 
 export default function Navbar() {
   const { user, loading, logout: authLogout } = useAuth();

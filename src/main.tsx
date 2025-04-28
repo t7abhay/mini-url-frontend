@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { AuthProvider } from "./components/AuthContext.tsx";
+import { AuthProvider } from "./components/AuthContext";
 import "./index.css";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
