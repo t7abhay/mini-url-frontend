@@ -1,20 +1,19 @@
 import { useState } from "react";
-import "./componentsstyles/form.style.css";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../config/axios/axiosInstance";
 import { useAuth } from "../hooks/useAuth";
-
-import { isValidEmail } from "../utils/emailValidation";
-
+import {
+  register,
+  userLogin,
+  changePassword,
+} from "../services/provider/apis/userService";
 import {
   successToast,
   errorToast,
   infoToast,
-  warnToast,
 } from "../utils/notifications/Toasts";
 import { validateConfirmPassword } from "../utils/passwordConfirm";
-import "react-toastify/dist/ReactToastify.css";
-import { validateEmail } from "../utils/emailValidation.ts";
+import { isValidEmail } from "../utils/emailValidation";
+
 type FormMode = "login" | "register" | "changePassword";
 
 interface FormProps {
@@ -22,9 +21,8 @@ interface FormProps {
 }
 
 export default function Form({ mode }: FormProps) {
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -37,62 +35,59 @@ export default function Form({ mode }: FormProps) {
 
   if (!["login", "register", "changePassword"].includes(mode)) {
     return (
-      <div className="form_container">
-        <h3 id="form_title">Invalid Form Mode</h3>
+      <div className="text-center text-red-600 font-semibold">
+        Invalid Form Mode
       </div>
     );
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [event?.target?.name]: event?.target?.value });
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    setError(null);
 
     try {
-      if (!isValidEmail(formData.email)) {
-        errorToast(`👻 Provide a valid email`);
-      }
-
       if (mode === "login") {
-        const payload = {
-          email: formData.email,
-          password: formData.password,
-        };
+        if (!isValidEmail(formData.email)) {
+          errorToast(`👻 Provide a valid email`);
+          setLoading(false);
+          return;
+        }
 
-        await axiosInstance
-          .post("/login", payload, {
-            withCredentials: true,
-          })
-          .then((response) => {
-            login(response.data.data.user);
-
-            successToast("🙂 Login Successfull!");
+        const payLoad = { email: formData.email, password: formData.password };
+        await userLogin(payLoad)
+          .then((res) => {
+            login(res.data.data.user);
+            successToast("🙂 Login Successful!");
             navigate("/dashboard");
           })
-          .catch((error) => {
-            errorToast(`${error.response.data.message}`);
+          .catch((err) => {
+            errorToast(`${err.response?.data?.message}`);
           });
       }
 
       if (mode === "register") {
-        const payload = {
+        if (!isValidEmail(formData.email)) {
+          errorToast(`👻 Provide a valid email`);
+          setLoading(false);
+          return;
+        }
+
+        const payLoad = {
           username: formData.username,
           email: formData.email,
           password: formData.password,
         };
-
-        await axiosInstance
-          .post("/register", payload)
-          .then((response) => {
-            successToast(response.data.data.message);
+        await register(payLoad)
+          .then((res) => {
+            successToast(res.data.data.message);
             navigate("/login");
           })
-          .catch((error) => {
-            errorToast(`${error.response.data.message}`);
+          .catch((err) => {
+            errorToast(`${err.response?.data?.message}`);
           });
       }
 
@@ -107,125 +102,128 @@ export default function Form({ mode }: FormProps) {
           setLoading(false);
           return;
         }
+        const payLoad = {
+          currentPassword: formData.currentPassword,
+          newPassword: formData.newPassword,
+          confirmPassword: formData.confirmPassword,
+        };
 
-        await axiosInstance
-          .post("/change-password", {
-            currentPassword: formData.currentPassword,
-            newPassword: formData.newPassword,
-          })
-          .then((response) => {
-            successToast(response.data.data.message);
+        await changePassword(payLoad)
+          .then((res) => {
+            successToast(res.data?.message);
+
+            logout();
             navigate("/login");
           })
-          .catch((error) => {
-            errorToast(`${error.response.data.message}`);
+          .catch((err) => {
+            console.log(err);
+            errorToast(`${err.response?.data?.message}`);
           });
       }
-    } catch (err: any) {
-      setError("An error occurred. Please try again.");
+    } catch (err) {
+      errorToast("Something went wrong.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="form_container">
-        <form onSubmit={handleSubmit}>
-          {mode === "register" && (
-            <>
-              <h3 id="form_title">Register to MiniUrl</h3>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </>
-          )}
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2 text-center">
+        {mode === "login"
+          ? "Login to MiniUrl"
+          : mode === "register"
+          ? "Register for MiniUrl"
+          : "Change Password"}
+      </h3>
 
-          {mode === "login" && (
-            <>
-              <h3 id="form_title">Login to MiniUrl</h3>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </>
-          )}
+      {mode === "register" && (
+        <>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </>
+      )}
 
-          {mode === "changePassword" && (
-            <>
-              <h3 id="form_title">Change Password</h3>
+      {(mode === "register" || mode === "login") && (
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      )}
 
-              <input
-                type="password"
-                name="currentPassword"
-                placeholder="Current Password"
-                value={formData.currentPassword}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="newPassword"
-                placeholder="New Password"
-                value={formData.newPassword}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </>
-          )}
+      {(mode === "register" || mode === "login") && (
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      )}
 
-          <button id="form_submit_button" type="submit" disabled={loading}>
-            {loading
-              ? "Submitting..."
-              : mode === "login"
-              ? "Login"
-              : mode === "register"
-              ? "Register"
-              : "Change Password"}
-          </button>
-        </form>
-      </div>
-    </>
+      {mode === "changePassword" && (
+        <>
+          <input
+            type="password"
+            name="currentPassword"
+            placeholder="Current Password"
+            value={formData.currentPassword}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="password"
+            name="newPassword"
+            placeholder="New Password"
+            value={formData.newPassword}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </>
+      )}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className={`w-full py-2 text-white rounded transition-all ${
+          loading
+            ? "bg-blue-300 cursor-not-allowed"
+            : "bg-blue-500 hover:bg-blue-600"
+        }`}
+      >
+        {loading
+          ? "Submitting..."
+          : mode === "login"
+          ? "Login"
+          : mode === "register"
+          ? "Register"
+          : "Change Password"}
+      </button>
+    </form>
   );
 }

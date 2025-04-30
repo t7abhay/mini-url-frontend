@@ -1,9 +1,9 @@
 import { axiosInstance } from "../../../config/axios/axiosInstance";
 
-interface CreateShortUrlRequest {
+export interface CreateShortUrlRequest {
   originalUrl: string;
 }
-interface DeleteUrlRequest {
+export interface DeleteUrlRequest {
   shortId: string;
 }
 
@@ -12,41 +12,17 @@ interface RedirectRequest {
 }
 
 export const createShortUrl = async (data: CreateShortUrlRequest) => {
-  try {
-    const response = await axiosInstance.post("/shorten-url", data);
-
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.post("/shorten-url", data);
 };
 
 export const getAllUrls = async () => {
-  try {
-    const response = await axiosInstance.get("/all-urls");
-
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.get("/all-urls");
 };
 
 export const deleteUrl = async (shortId: DeleteUrlRequest) => {
-  try {
-    const response = await axiosInstance.delete(`/delete-url/${shortId}`);
-
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.delete(`/delete-url/${shortId}`);
 };
 
 export const redirectToOriginal = async (shortId: RedirectRequest) => {
-  try {
-    const response = await axiosInstance.get(`/s/${shortId}`);
-
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.get(`/s/${shortId}`);
 };
