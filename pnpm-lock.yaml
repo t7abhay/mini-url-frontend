@@ -65,6 +65,9 @@ importers:
       url:
         specifier: ^0.11.4
         version: 0.11.4
+      vite-plugin-tailwindcss:
+        specifier: 0.0.0-0
+        version: 0.0.0-0(vite@6.3.3(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2))
       zod:
         specifier: ^3.24.3
         version: 3.24.3
@@ -1648,6 +1651,11 @@ packages:
   util@0.10.4:
     resolution: {integrity: sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==}
 
+  vite-plugin-tailwindcss@0.0.0-0:
+    resolution: {integrity: sha512-vb84O0cUAN8a79KiL3lPcHrvJ6ODZrjex3ekS4TgxBhyJJzf53mkBbT/LfUKhJ7jsz160Ml3e4lyqNLOdE7bgQ==}
+    peerDependencies:
+      vite: ^2.2.0
+
   vite@6.3.3:
     resolution: {integrity: sha512-5nXH+QsELbFKhsEfWLkHrvgRpTdGJzqOZ+utSdmPTvwHmvU6ITTm3xx+mRusihkcI8GeC7lCDyn3kDtiki9scw==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -3106,6 +3114,10 @@ snapshots:
   util@0.10.4:
     dependencies:
       inherits: 2.0.3
+
+  vite-plugin-tailwindcss@0.0.0-0(vite@6.3.3(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)):
+    dependencies:
+      vite: 6.3.3(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)
 
   vite@6.3.3(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2):
     dependencies:

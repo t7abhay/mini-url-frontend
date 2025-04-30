@@ -1,11 +1,68 @@
-@import "tailwindcss" @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "tailwindcss";
+
+/* Body Styles */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f2027, #1d3d48, #25647f);
+  background-color: rgba(23, 21, 21, 0.944);
   background-size: 400% 400%;
   animation: bgAnimation 20s ease infinite;
   color: white;
+}
+
+/* Background Animation */
+@keyframes bgAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Bubble Animation */
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  background-color: rgba(0, 0, 255, 0.2); /* Blue bubble color */
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 255, 0.3); /* Blue border */
+  animation-name: floatUp;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  white-space: nowrap;
+  pointer-events: none;
+  text-align: center;
+  box-shadow: 0 0 12px rgba(104, 19, 184, 0.651); /* Blue glow */
+  transition: transform 0.3s ease;
+}
+
+/* Keyframes for Bubble Float Animation  brrrrrrrrrrrrrrrrrr   ;abhay*/
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.95);
+    opacity: 1; /* Start visible */
+  }
+  10% {
+    opacity: 1; /* Remain visible */
+  }
+  90% {
+    opacity: 1; /* Stay visible */
+    transform: translateY(-90vh) scale(1.1);
+  }
+  100% {
+    opacity: 0; /* Fade out */
+    transform: translateY(-100vh) scale(1.2);
+  }
 }

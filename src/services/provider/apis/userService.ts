@@ -15,50 +15,28 @@ interface RegisterRequest {
 interface ChangePasswordRequest {
   currentPassword: string;
   newPassword: string;
-  confirmPassword: string;
 }
 
-export const login = async (data: LoginRequest) => {
-  try {
-    const response = await axiosInstance.post("/login", data);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const userLogin = async (data: LoginRequest) => {
+  return await axiosInstance.post("/login", data, {
+    withCredentials: true,
+  });
 };
 
 export const register = async (data: RegisterRequest) => {
-  try {
-    const response = await axiosInstance.post("/register", data);
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.post("/register", data);
 };
 
 export const logout = async () => {
-  try {
-    const response = await axiosInstance.post("/logout");
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.post("/logout");
 };
 
 export const changePassword = async (data: ChangePasswordRequest) => {
-  try {
-    const response = await axiosInstance.post("/change-password", data);
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.post("/change-password", data, {
+    withCredentials: true,
+  });
 };
 
 export const profile = async () => {
-  try {
-    const response = await axiosInstance.post("/me/profile");
-    return response;
-  } catch (error) {
-    return error;
-  }
+  return axiosInstance.post("/me/profile", {}, { withCredentials: true });
 };

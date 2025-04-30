@@ -31,7 +31,7 @@ export const errorToast = (error: string) => {
 export const infoToast = (info: string) => {
   toast.info(`${info}`, {
     position: "top-right",
-    autoClose: 1000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: false,
@@ -44,7 +44,7 @@ export const infoToast = (info: string) => {
 export const warnToast = (warning: string) => {
   toast.warn(`${warning}`, {
     position: "top-right",
-    autoClose: 1000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: false,
