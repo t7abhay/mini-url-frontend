@@ -82,6 +82,7 @@ export default function DashBoard() {
           >
             <input
               type="url"
+              id="url_input"
               placeholder="Enter your long URL"
               value={longUrl}
               onChange={(e) => setLongUrl(e.target.value)}
