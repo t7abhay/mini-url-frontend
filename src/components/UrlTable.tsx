@@ -4,7 +4,7 @@ import { deleteUrl } from "../services/provider/apis/urlService";
 export default function UrlTable({ urlList, refreshUrls }) {
   const copyToClipboard = async (text) => {
     try {
-      await navigator.clipboard.writeText("http://localhost:5173/r/" + text);
+      await navigator.clipboard.writeText("minuri.vercel.app/r/" + text);
       successToast("📝 Copied");
     } catch (error) {
       errorToast("Failed to copy! 😶");
