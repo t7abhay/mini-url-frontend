@@ -18,21 +18,17 @@ export default function RedirectPage() {
       }
     };
 
-    console.log(shortId);
     fetchUrlAndRedirect();
   }, [shortId]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h2 className="text-xl font-semibold mb-4">Redirecting...</h2>
-      <iframe
-        src="https://tenor.com/embed/13010053790556437914"
-        width="300"
-        height="300"
-        frameBorder="0"
-        allowFullScreen
-        title="Nyan Cat Meme GIF"
-      ></iframe>
+      <img
+        src="/src/assets/cat.gif"
+        alt="Redirecting animation"
+        className="w-64 h-auto"
+      />
     </div>
   );
 }
