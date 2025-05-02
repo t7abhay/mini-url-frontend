@@ -1,7 +1,7 @@
 import { axiosInstance } from "../config/axios/axiosInstance";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import catGif from "../assets/cat.gif";
+import catGif from "../assets/cat.gif";  
 
 export default function RedirectPage() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function RedirectPage() {
     <div className="flex flex-col items-center justify-center h-screen">
       <h2 className="text-xl font-semibold mb-4">Redirecting...</h2>
       <img
-        src="/src/assets/cat.gif"
+        src={catGif}  
         alt="Redirecting animation"
         className="w-64 h-auto"
       />
