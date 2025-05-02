@@ -1,5 +1,4 @@
 import { axiosInstance } from "../config/axios/axiosInstance";
-
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -24,10 +23,16 @@ export default function RedirectPage() {
   }, [shortId]);
 
   return (
-    <>
-      <div>
-        <h2>Redirecting ....... </h2>
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <h2 className="text-xl font-semibold mb-4">Redirecting...</h2>
+      <iframe
+        src="https://tenor.com/embed/13010053790556437914"
+        width="300"
+        height="300"
+        frameBorder="0"
+        allowFullScreen
+        title="Nyan Cat Meme GIF"
+      ></iframe>
+    </div>
   );
 }
