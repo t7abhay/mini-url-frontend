@@ -1,6 +1,7 @@
 import { axiosInstance } from "../config/axios/axiosInstance";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import catGif from "../assets/cat.gif";
 
 export default function RedirectPage() {
   const navigate = useNavigate();
