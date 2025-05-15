@@ -10,10 +10,10 @@ export default function HomePage() {
   const bubbleFacts = getRandomFacts(facts, 10);
   return (
     <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center text-center px-4">
-      <h1 className="text-4xl font-bold text-white z-10">Hi, I'm Abhay 👋</h1>
+      <h1 className="text-4xl font-bold text-white z-10">Minuri</h1>
       <h2 className="text-2xl text-white mt-2 z-10">
-        I'm a Backend Developer 💻
-      </h2>
+        One of best url shortner
+      <h2>
 
    
       <Link
